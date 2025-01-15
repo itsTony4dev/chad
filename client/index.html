@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat Interface</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        height: 100vh;
+        font-family: system-ui, -apple-system, sans-serif;
+      }
+
+      .chat-container {
+        display: flex;
+        height: 100vh;
+        background: #f3f4f6;
+      }
+
+      /* Sidebar styles */
+      .sidebar {
+        width: 320px;
+        background: white;
+        border-right: 1px solid #e5e7eb;
+      }
+
+      .search-container {
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .search-box {
+        width: 100%;
+        padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'%3E%3C/path%3E%3C/svg%3E")
+          no-repeat 0.75rem center/1rem;
+      }
+
+      .conversations {
+        height: calc(100vh - 73px);
+        overflow-y: auto;
+      }
+
+      .conversation-item {
+        display: flex;
+        padding: 1rem;
+        border-bottom: 1px solid #e5e7eb;
+        cursor: pointer;
+      }
+
+      .conversation-item:hover {
+        background: #f9fafb;
+      }
+
+      .avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: #3b82f6;
+        border-radius: 50%;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 500;
+      }
+
+      .conversation-details {
+        margin-left: 0.75rem;
+        flex: 1;
+      }
+
+      .conversation-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.25rem;
+      }
+
+      .name {
+        font-weight: 500;
+      }
+
+      .time {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      .last-message {
+        font-size: 0.875rem;
+        color: #6b7280;
+      }
+
+      /* Main chat area styles */
+      .chat-main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .chat-header {
+        height: 4rem;
+        padding: 0 1rem;
+        background: white;
+        border-bottom: 1px solid #e5e7eb;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .messages-container {
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+      }
+
+      .message {
+        max-width: 70%;
+        margin: 1rem 0;
+        clear: both;
+      }
+
+      .message.received {
+        float: left;
+        background: #f3f4f6;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+      }
+
+      .message.sent {
+        float: right;
+        background: #3b82f6;
+        color: white;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+      }
+
+      .message-time {
+        font-size: 0.75rem;
+        margin-top: 0.25rem;
+        opacity: 0.8;
+      }
+
+      .chat-input {
+        padding: 1rem;
+        background: white;
+        border-top: 1px solid #e5e7eb;
+      }
+
+      .input-container {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .message-input {
+        flex: 1;
+        padding: 0.5rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 0.375rem;
+      }
+
+      .send-button {
+        padding: 0.5rem 1rem;
+        background: #3b82f6;
+        color: white;
+        border: none;
+        border-radius: 0.375rem;
+        cursor: pointer;
+      }
+
+      .send-button:hover {
+        background: #2563eb;
+      }
+
+      .unread-badge {
+        background: #3b82f6;
+        color: white;
+        font-size: 0.75rem;
+        padding: 0.125rem 0.5rem;
+        border-radius: 9999px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="chat-container">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="search-container">
+          <input
+            type="text"
+            class="search-box"
+            placeholder="Search conversations..."
+          />
+        </div>
+        <div class="conversations">
+          <div class="conversation-item">
+            <div class="avatar">S</div>
+            <div class="conversation-details">
+              <div class="conversation-header">
+                <span class="name">Sarah Wilson</span>
+                <span class="time">10:30 AM</span>
+              </div>
+              <div class="last-message">
+                See you tomorrow!
+                <span class="unread-badge">2</span>
+              </div>
+            </div>
+          </div>
+          <div class="conversation-item">
+            <div class="avatar">T</div>
+            <div class="conversation-details">
+              <div class="conversation-header">
+                <span class="name">Team Project</span>
+                <span class="time">9:15 AM</span>
+              </div>
+              <div class="last-message">Great progress everyone!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Chat Area -->
+      <div class="chat-main">
+        <div class="chat-header">
+          <div style="display: flex; align-items: center">
+            <div class="avatar">S</div>
+            <div style="margin-left: 0.75rem">
+              <div class="name">Sarah Wilson</div>
+              <div style="font-size: 0.875rem; color: #6b7280">Online</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="messages-container">
+          <div class="message received">
+            <div>Hi! How are you?</div>
+            <div class="message-time">10:15 AM</div>
+          </div>
+          <div class="message sent">
+            <div>I'm doing great, thanks! How about you?</div>
+            <div class="message-time">10:20 AM</div>
+          </div>
+          <div class="message received">
+            <div>Pretty good! Looking forward to our meeting tomorrow.</div>
+            <div class="message-time">10:25 AM</div>
+          </div>
+          <div class="message sent">
+            <div>See you tomorrow!</div>
+            <div class="message-time">10:30 AM</div>
+          </div>
+        </div>
+
+        <div class="chat-input">
+          <div class="input-container">
+            <input
+              type="text"
+              class="message-input"
+              placeholder="Type a message..."
+            />
+            <button class="send-button">Send</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="http://localhost:8000/socket.io/socket.io.js"></script>
+    <script src="client.js"></script>
+  </body>
+</html>
