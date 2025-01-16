@@ -185,11 +185,14 @@
         padding: 0.125rem 0.5rem;
         border-radius: 9999px;
       }
+
+      .conversation-item .avatar {
+        margin-right: 10%;
+      }
     </style>
   </head>
   <body>
     <div class="chat-container">
-      <!-- Sidebar -->
       <div class="sidebar">
         <div class="search-container">
           <input
@@ -199,62 +202,36 @@
           />
         </div>
         <div class="conversations">
-          <div class="conversation-item">
-            <div class="avatar">S</div>
-            <div class="conversation-details">
+          <a href="#?room=javascript">
+            <div class="conversation-item">
+              <div class="avatar">J</div>
               <div class="conversation-header">
-                <span class="name">Sarah Wilson</span>
-                <span class="time">10:30 AM</span>
-              </div>
-              <div class="last-message">
-                See you tomorrow!
-                <span class="unread-badge">2</span>
+                <span class="name">JavaScript</span>
               </div>
             </div>
-          </div>
-          <div class="conversation-item">
-            <div class="avatar">T</div>
-            <div class="conversation-details">
+          </a>
+          <a href="#?room=php">
+            <div class="conversation-item">
+              <div class="avatar">P</div>
               <div class="conversation-header">
-                <span class="name">Team Project</span>
-                <span class="time">9:15 AM</span>
+                <span class="name">PHP</span>
               </div>
-              <div class="last-message">Great progress everyone!</div>
             </div>
-          </div>
+          </a>
         </div>
       </div>
 
-      <!-- Main Chat Area -->
       <div class="chat-main">
         <div class="chat-header">
           <div style="display: flex; align-items: center">
-            <div class="avatar">S</div>
+            <div class="avatar">#</div>
             <div style="margin-left: 0.75rem">
-              <div class="name">Sarah Wilson</div>
-              <div style="font-size: 0.875rem; color: #6b7280">Online</div>
+              <div class="name">Enter A Room</div>
             </div>
           </div>
         </div>
 
-        <div class="messages-container">
-          <!-- <div class="message received">
-            <div>Hi! How are you?</div>
-            <div class="message-time">10:15 AM</div>
-          </div>
-          <div class="message sent">
-            <div>I'm doing great, thanks! How about you?</div>
-            <div class="message-time">10:20 AM</div>
-          </div>
-          <div class="message received">
-            <div>Pretty good! Looking forward to our meeting tomorrow.</div>
-            <div class="message-time">10:25 AM</div>
-          </div>
-          <div class="message sent">
-            <div>See you tomorrow!</div>
-            <div class="message-time">10:30 AM</div>
-          </div> -->
-        </div>
+        <div class="messages-container"></div>
 
         <div class="chat-input">
           <div class="input-container">
@@ -268,6 +245,7 @@
         </div>
       </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/qs@6.14.0/dist/qs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.7.2/socket.io.min.js"></script>
     <script src="http://localhost:8000/socket.io/socket.io.js"></script>
     <script src="client.js"></script>
