@@ -27,7 +27,9 @@ socket.on("message", (message) => {
 
 function sendMessage() {
   const content = messageInput.value.trim();
-  if (!content) return;
+  if (!content) {
+    return;
+  }
 
   socket.emit("send_message", {
     content,
@@ -46,8 +48,9 @@ messageInput.addEventListener("keypress", (e) => {
   }
 });
 
-socket.on("disconnect", () => {
-  console.log("Disconnected from server");
+socket.emit("user_connected", {
+  username: "user",
+  room: "room",
 });
 
 // Optional: Handle typing indicators
@@ -59,4 +62,7 @@ messageInput.addEventListener("input", () => {
 socket.on("user_typing", (user) => {
   // Add typing indicator logic here
   console.log(`${user} is typing...`);
+});
+socket.on("disconnect", () => {
+  console.log("Disconnected from server");
 });

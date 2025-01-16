@@ -27,7 +27,7 @@ io.on("connection", (socket) => {
     io.emit("message", {
       ...message,
       socketId: socket.id,
-      sent: false,
+      sent: true,
     });
   });
 
